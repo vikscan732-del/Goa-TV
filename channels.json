@@ -1,0 +1,40 @@
+{
+  "channels": [
+    {
+      "id": 1,
+      "name": "Prudent Media",
+      "logo": "assets/logos/prudent.png",
+      "url": ""
+    },
+    {
+      "id": 2,
+      "name": "Goa 365",
+      "logo": "assets/logos/goa365.png",
+      "url": ""
+    },
+    {
+      "id": 3,
+      "name": "In Goa 24x7",
+      "logo": "assets/logos/ingoa24x7.png",
+      "url": ""
+    },
+    {
+      "id": 4,
+      "name": "RDX Goa",
+      "logo": "assets/logos/rdxgoa.png",
+      "url": ""
+    },
+    {
+      "id": 5,
+      "name": "Test 1",
+      "logo": "assets/logos/test1.png",
+      "url": ""
+    },
+    {
+      "id": 6,
+      "name": "Test 2",
+      "logo": "assets/logos/test2.png",
+      "url": ""
+    }
+  ]
+}
