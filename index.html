@@ -4,181 +4,100 @@
 <head>
 
 <meta charset="UTF-8">
-
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width,initial-scale=1">
 
 <title>Goa TV Live</title>
 
-<meta name="theme-color" content="#ffffff">
-
-<meta name="apple-mobile-web-app-capable" content="yes">
-
-<meta name="mobile-web-app-capable" content="yes">
+<meta name="theme-color" content="#1976d2">
 
 <link rel="manifest" href="manifest.json">
 
-<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="css/style.css">
 
-<link rel="icon" href="assets/icons/icon-192.png">
+<link rel="icon" href="assets/default-logo.png">
 
 </head>
 
 <body>
 
-<!-- Header -->
+<header class="header">
 
-<header class="topbar">
+<div class="header-left">
 
-<div class="menu-btn">
-☰
-</div>
+<img
+id="siteLogo"
+class="site-logo"
+src="assets/default-logo.png"
+alt="Logo">
 
-<div class="logo-area">
+<div>
 
-<img src="assets/logo.png" class="app-logo">
+<h1 id="siteName">
+Goa TV Live
+</h1>
 
-<div class="app-title">
+<p class="subtitle">
 
-<span class="blue">Goa TV</span>
-
-<span class="red">Live</span>
-
-</div>
-
-</div>
-
-<div class="settings-btn">
-⚙
-</div>
-
-</header>
-
-<!-- Heading -->
-
-<section class="heading">
-
-<h2>
-
-<span class="live-dot"></span>
-
-LIVE TV CHANNELS
-
-</h2>
-
-<p>
-
-Watch Live TV Anytime, Anywhere
+Watch Live TV Anywhere
 
 </p>
 
+</div>
+
+</div>
+
+<button
+id="adminBtn"
+class="admin-btn">
+
+⚙
+
+</button>
+
+</header>
+
+<section class="live-header">
+
+<div class="live-dot"></div>
+
+<h2>
+
+LIVE CHANNELS
+
+</h2>
+
 </section>
 
-<!-- Channel Grid -->
+<main>
 
-<section class="channel-grid" id="channelGrid">
+<div
+id="channelGrid"
+class="channel-grid">
 
-</section>
-  
-<!-- Streaming Options -->
-
-<section class="stream-options">
-
-<button id="lowDataBtn" class="option-btn">
-📶 Low Data
-</button>
-
-<button id="highQualityBtn" class="option-btn active">
-✨ High Quality
-</button>
-
-</section>
-
-<!-- Video Player -->
-
-<div id="playerModal" class="player-modal">
-
-<div class="player-header">
-
-<h3 id="channelTitle">Goa TV Live</h3>
-
-<button id="closePlayer">✕</button>
+<!-- Channels loaded automatically -->
 
 </div>
 
-<div class="video-container">
-
-<video
-id="video"
-controls
-playsinline
-autoplay>
-</video>
-
-<div id="loading" class="loading">
-
-<div class="spinner"></div>
-
-<p>Loading Stream...</p>
-
-</div>
-
-</div>
-
-<div class="player-controls">
-
-<button id="fullscreenBtn">
-⛶ Full Screen
-</button>
-
-<button id="pipBtn">
-🗔 Picture in Picture
-</button>
-
-</div>
-
-<div class="volume-box">
-
-<label>🔊 Volume</label>
-
-<input
-type="range"
-id="volumeSlider"
-min="0"
-max="100"
-value="100">
-
-</div>
-
-<div class="retry-box">
-
-<button id="retryBtn">
-Retry Stream
-</button>
-
-</div>
-
-</div>
-
-<!-- Footer -->
+</main>
 
 <footer>
 
 <p>
 
-Developer :
-<b>Vikrant Naik</b>
+Developer
+
+<b id="developerName">
+
+Vikrant Naik
+
+</b>
 
 </p>
 
 </footer>
 
-<script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
-
-<script src="player.js"></script>
-
-<script src="script.js"></script>
+<script src="js/app.js"></script>
 
 </body>
 
 </html>
-
