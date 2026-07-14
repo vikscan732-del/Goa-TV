@@ -1,95 +1,112 @@
 const GIST_URL = "https://gist.githubusercontent.com/vikscan732-del/dfc5c1fbf04678bccd40ac930151d8ce/raw/gistfile1.txt";
 
 let channels = [];
-let qualityMode = "high";
 
+const grid = document.getElementById("channelGrid");
 const player = document.getElementById("playerModal");
 const title = document.getElementById("channelTitle");
 const video = document.getElementById("video");
 
-async function loadChannels() {
-    try {
-        const response = await fetch(GIST_URL + "?t=" + Date.now());
-        const data = await response.json();
-        channels = data.channels;
-    } catch (e) {
-        console.log("Failed to load channels", e);
-    }
+async function loadChannels(){
+
+try{
+
+const response = await fetch(GIST_URL + "?t=" + Date.now());
+
+const data = await response.json();
+
+channels = data.channels;
+
+createCards();
+
+}catch(e){
+
+console.log(e);
+
 }
 
-loadChannels();
+}
 
-document.querySelectorAll(".channel-card").forEach((card, index) => {
+function createCards(){
 
-    card.onclick = () => {
+grid.innerHTML="";
 
-        if (!channels[index]) return;
+channels.forEach((ch,index)=>{
 
-        title.innerText = channels[index].name;
+grid.innerHTML += `
 
-        player.style.display = "block";
+<div class="channel-card" onclick="openChannel(${index})">
 
-        playChannel(channels[index].url);
+<div class="live-tag">LIVE</div>
 
-    };
+<img src="${ch.logo}" alt="${ch.name}">
+
+<h3>${ch.name}</h3>
+
+</div>
+
+`;
 
 });
 
-document.getElementById("closePlayer").onclick = () => {
+}
 
-    video.pause();
+function openChannel(index){
 
-    player.style.display = "none";
+title.innerText = channels[index].name;
 
-};
+player.style.display="block";
 
-document.getElementById("lowDataBtn").onclick = () => {
+playChannel(channels[index].url);
 
-    qualityMode = "low";
+}
 
-    document.getElementById("lowDataBtn").classList.add("active");
+document.getElementById("closePlayer").onclick=function(){
 
-    document.getElementById("highQualityBtn").classList.remove("active");
+video.pause();
 
-};
-
-document.getElementById("highQualityBtn").onclick = () => {
-
-    qualityMode = "high";
-
-    document.getElementById("highQualityBtn").classList.add("active");
-
-    document.getElementById("lowDataBtn").classList.remove("active");
+player.style.display="none";
 
 };
 
-document.getElementById("fullscreenBtn").onclick = () => {
+document.getElementById("fullscreenBtn").onclick=function(){
 
-    if (video.requestFullscreen)
-        video.requestFullscreen();
+if(video.requestFullscreen){
 
-};
+video.requestFullscreen();
 
-document.getElementById("pipBtn").onclick = async () => {
-
-    if (document.pictureInPictureEnabled)
-        await video.requestPictureInPicture();
+}
 
 };
 
-document.getElementById("volumeSlider").oninput = (e) => {
+document.getElementById("pipBtn").onclick=async function(){
 
-    video.volume = e.target.value / 100;
+if(document.pictureInPictureEnabled){
+
+await video.requestPictureInPicture();
+
+}
+
+};
+
+document.getElementById("volumeSlider").oninput=function(){
+
+video.volume=this.value/100;
 
 };
 
-document.getElementById("retryBtn").onclick = () => {
+document.getElementById("retryBtn").onclick=function(){
 
-    const current = title.innerText;
+const current=title.innerText;
 
-    const ch = channels.find(c => c.name === current);
+const ch=channels.find(c=>c.name===current);
 
-    if (ch)
-        playChannel(ch.url);
+if(ch){
+
+playChannel(ch.url);
+
+}
 
 };
+
+loadChannels();
