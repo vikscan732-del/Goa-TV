@@ -1,107 +1,81 @@
-// ============================
 // Goa TV Live
-// HLS Configuration
-// ============================
+// Simple HLS Player
 
-const HLS_OPTIONS = {
-
-    debug: false,
-
-    enableWorker: true,
-
-    lowLatencyMode: true,
-
-    liveDurationInfinity: true,
-
-    backBufferLength: 90,
-
-    maxBufferLength: 30,
-
-    maxMaxBufferLength: 60,
-
-    maxBufferHole: 0.5,
-
-    highBufferWatchdogPeriod: 2,
-
-    liveSyncDurationCount: 3,
-
-    liveMaxLatencyDurationCount: 10,
-
-    fragLoadingTimeOut: 20000,
-
-    manifestLoadingTimeOut: 20000,
-
-    levelLoadingTimeOut: 20000,
-
-    fragLoadingRetryDelay: 1000,
-
-    manifestLoadingRetryDelay: 1000,
-
-    levelLoadingRetryDelay: 1000,
-
-    fragLoadingMaxRetry: 10,
-
-    manifestLoadingMaxRetry: 10,
-
-    levelLoadingMaxRetry: 10,
-
-    startLevel: -1,
-
-    capLevelToPlayerSize: true,
-
-    autoStartLoad: true
-
-};
-
-// Create HLS Player
+let hls = null;
 
 function createPlayer(video, url) {
 
+    if (hls) {
+        hls.destroy();
+        hls = null;
+    }
+
+    video.pause();
+    video.removeAttribute("src");
+    video.load();
+
+    if (!url) {
+        alert("Stream URL is empty.");
+        return null;
+    }
+
+    if (url.includes("youtube.com") || url.includes("youtu.be")) {
+        window.open(url, "_blank");
+        return null;
+    }
+
     if (Hls.isSupported()) {
 
-        const hls = new Hls(HLS_OPTIONS);
+        hls = new Hls({
+            enableWorker: true,
+            lowLatencyMode: true
+        });
 
         hls.loadSource(url);
 
         hls.attachMedia(video);
 
-        hls.on(Hls.Events.MANIFEST_PARSED, () => {
+        hls.on(Hls.Events.MANIFEST_PARSED, function () {
 
-            video.play().catch(() => {});
+            video.play().catch(function (e) {
+                console.log(e);
+            });
 
         });
 
         hls.on(Hls.Events.ERROR, function (event, data) {
 
-            if (!data.fatal) return;
+            console.log("HLS ERROR", data);
 
-            switch (data.type) {
+            if (data.fatal) {
 
-                case Hls.ErrorTypes.NETWORK_ERROR:
+                switch (data.type) {
 
-                    console.log("Retry Network");
+                    case Hls.ErrorTypes.NETWORK_ERROR:
 
-                    hls.startLoad();
+                        console.log("Retry Network");
 
-                    break;
+                        hls.startLoad();
 
-                case Hls.ErrorTypes.MEDIA_ERROR:
+                        break;
 
-                    console.log("Recover Media");
+                    case Hls.ErrorTypes.MEDIA_ERROR:
 
-                    hls.recoverMediaError();
+                        console.log("Recover Media");
 
-                    break;
+                        hls.recoverMediaError();
 
-                default:
+                        break;
 
-                    console.log("Restart Player");
+                    default:
 
-                    hls.destroy();
+                        hls.destroy();
 
-                    createPlayer(video, url);
+                        hls = null;
 
-                    break;
+                        break;
+
+                }
 
             }
 
@@ -111,14 +85,16 @@ function createPlayer(video, url) {
 
     }
 
-    // Safari Support
-
     if (video.canPlayType("application/vnd.apple.mpegurl")) {
 
         video.src = url;
 
-        video.play().catch(() => {});
+        video.play().catch(function (e) {
+            console.log(e);
+        });
 
     }
+
+    return null;
 
 }
