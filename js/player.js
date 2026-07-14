@@ -1,105 +1,76 @@
-// ==========================
-// Goa TV Live
-// player.js - Part 1
-// ==========================
+// Goa TV Live - Simple Player
 
 let player = null;
-
-const video = document.getElementById("video");
-
-const loading = document.getElementById("loading");
-
-const channelName =
-document.getElementById("channelName");
-
-const backBtn =
-document.getElementById("backBtn");
-
-const fullscreenBtn =
-document.getElementById("fullscreenBtn");
-
-const pipBtn =
-document.getElementById("pipBtn");
-
-const volume =
-document.getElementById("volume");
-
-const lowBtn =
-document.getElementById("lowBtn");
-
-const highBtn =
-document.getElementById("highBtn");
-
 let currentChannel = null;
 
-function startPlayer(){
+const video = document.getElementById("video");
+const loading = document.getElementById("loading");
+const channelName = document.getElementById("channelName");
 
-    const saved =
-    sessionStorage.getItem("selectedChannel");
+const backBtn = document.getElementById("backBtn");
+const fullscreenBtn = document.getElementById("fullscreenBtn");
+const pipBtn = document.getElementById("pipBtn");
+const volume = document.getElementById("volume");
 
-    if(!saved){
+function playCurrentChannel() {
+
+    const saved = sessionStorage.getItem("selectedChannel");
+
+    if (!saved) {
 
         alert("No Channel Selected");
 
-        window.location.href="index.html";
+        window.location.href = "index.html";
 
         return;
 
     }
 
-    currentChannel =
-    JSON.parse(saved);
+    currentChannel = JSON.parse(saved);
 
-    channelName.innerText =
-    currentChannel.name;
+    channelName.textContent = currentChannel.name;
 
-    loading.style.display="flex";
+    loading.style.display = "flex";
 
-    player =
-    createPlayer(video,currentChannel.url);
+    player = createPlayer(video, currentChannel.url);
 
 }
 
-backBtn.onclick=function(){
+backBtn.onclick = function () {
 
-    window.location.href="index.html";
+    if (player) {
+
+        try {
+            player.destroy();
+        } catch (e) {}
+
+    }
+
+    video.pause();
+
+    window.location.href = "index.html";
 
 };
 
-video.addEventListener("playing",()=>{
+video.addEventListener("playing", function () {
 
-    loading.style.display="none";
-
-});
-
-video.addEventListener("waiting",()=>{
-
-    loading.style.display="flex";
+    loading.style.display = "none";
 
 });
 
-video.addEventListener("stalled",()=>{
+video.addEventListener("waiting", function () {
 
-    loading.style.display="flex";
-
-});
-
-video.addEventListener("error",()=>{
-
-    loading.style.display="flex";
+    loading.style.display = "flex";
 
 });
 
-startPlayer();
+video.addEventListener("error", function () {
 
-// ==========================
-// Goa TV Live
-// player.js - Part 2
-// ==========================
+    loading.style.display = "flex";
 
-// Full Screen
+});
 
-fullscreenBtn.addEventListener("click", () => {
+fullscreenBtn.onclick = function () {
 
     if (video.requestFullscreen) {
 
@@ -111,11 +82,9 @@ fullscreenBtn.addEventListener("click", () => {
 
     }
 
-});
+};
 
-// Picture in Picture
-
-pipBtn.addEventListener("click", async () => {
+pipBtn.onclick = async function () {
 
     try {
 
@@ -125,83 +94,28 @@ pipBtn.addEventListener("click", async () => {
 
         }
 
-    } catch (err) {
+    } catch (e) {
 
-        console.log(err);
+        console.log(e);
 
     }
 
-});
+};
 
-// Volume
+volume.oninput = function () {
 
-volume.addEventListener("input", () => {
+    video.volume = this.value / 100;
 
-    video.volume = volume.value / 100;
+};
 
-});
-
-// Quality Buttons (UI)
-
-lowBtn.addEventListener("click", () => {
-
-    lowBtn.style.background = "#1976d2";
-    lowBtn.style.color = "#fff";
-
-    highBtn.style.background = "#eee";
-    highBtn.style.color = "#000";
-
-    console.log("Low Data Mode");
-
-});
-
-highBtn.addEventListener("click", () => {
-
-    highBtn.style.background = "#1976d2";
-    highBtn.style.color = "#fff";
-
-    lowBtn.style.background = "#eee";
-    lowBtn.style.color = "#000";
-
-    console.log("High Quality Mode");
-
-});
-
-// Retry when Internet Returns
-
-window.addEventListener("online", () => {
-
-    console.log("Internet Restored");
+window.addEventListener("online", function () {
 
     if (currentChannel) {
 
-        createPlayer(video, currentChannel.url);
+        player = createPlayer(video, currentChannel.url);
 
     }
 
 });
 
-// Pause when Offline
-
-window.addEventListener("offline", () => {
-
-    alert("Internet connection lost.");
-
-});
-
-// Retry on Video Error
-
-video.addEventListener("error", () => {
-
-    if (currentChannel) {
-
-        setTimeout(() => {
-
-            createPlayer(video, currentChannel.url);
-
-        }, 2000);
-
-    }
-
-});
-
+playCurrentChannel();
