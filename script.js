@@ -9,21 +9,32 @@ const video = document.getElementById("video");
 
 async function loadChannels(){
 
-try{
+    try{
 
-const response = await fetch(GIST_URL + "?t=" + Date.now());
+        const response = await fetch(CONFIG_URL + "?t=" + Date.now());
 
-const data = await response.json();
+        const data = await response.json();
 
-channels = data.channels;
+        document.querySelector(".app-title").innerHTML =
+        `<span class="blue">${data.website.name.split(" ")[0]}</span>
+         <span class="red">${data.website.name.split(" ").slice(1).join(" ")}</span>`;
 
-createCards();
+        document.querySelector("footer b").innerText =
+        data.website.developer;
 
-}catch(e){
+        if(data.website.logo!=""){
+            document.querySelector(".app-logo").src=data.website.logo;
+        }
 
-console.log(e);
+        channels=data.channels;
 
-}
+        createCards();
+
+    }catch(e){
+
+        console.log(e);
+
+    }
 
 }
 
