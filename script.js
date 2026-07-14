@@ -1,4 +1,4 @@
-const GIST_URL = "https://gist.githubusercontent.com/vikscan732-del/dfc5c1fbf04678bccd40ac930151d8ce/raw/gistfile1.txt";
+const CONFIG_URL = "./config/config.json";
 
 let channels = [];
 
