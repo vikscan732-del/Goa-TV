@@ -1,0 +1,45 @@
+{
+  "website": {
+    "name": "Goa TV Live",
+    "developer": "Vikrant Naik",
+    "logo": ""
+  },
+  "channels": [
+    {
+      "name": "Prudent Media",
+      "logo": "",
+      "url": "",
+      "live": true
+    },
+    {
+      "name": "Goa 365",
+      "logo": "",
+      "url": "",
+      "live": true
+    },
+    {
+      "name": "In Goa 24x7",
+      "logo": "",
+      "url": "",
+      "live": true
+    },
+    {
+      "name": "RDX Goa",
+      "logo": "",
+      "url": "",
+      "live": true
+    },
+    {
+      "name": "Test 1",
+      "logo": "",
+      "url": "",
+      "live": true
+    },
+    {
+      "name": "Test 2",
+      "logo": "",
+      "url": "",
+      "live": true
+    }
+  ]
+}
