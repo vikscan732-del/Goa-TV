@@ -1,0 +1,53 @@
+import { auth } from "./firebase.js";
+
+import {
+
+signInWithEmailAndPassword,
+
+signOut,
+
+onAuthStateChanged
+
+} from "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
+
+// ----------------------
+// Login
+// ----------------------
+
+export async function login(email,password){
+
+    return await signInWithEmailAndPassword(
+
+        auth,
+
+        email,
+
+        password
+
+    );
+
+}
+
+// ----------------------
+// Logout
+// ----------------------
+
+export async function logout(){
+
+    await signOut(auth);
+
+}
+
+// ----------------------
+// Check Login
+// ----------------------
+
+export function checkLogin(callback){
+
+    onAuthStateChanged(auth,user=>{
+
+        callback(user);
+
+    });
+
+}
