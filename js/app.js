@@ -1,102 +1,116 @@
-// ===================================
+// =======================================
 // Goa TV Live
 // app.js
 // Part 1
-// ===================================
+// =======================================
 
 import {
-
-getWebsiteSettings,
-
-getChannels
-
+  getWebsiteSettings,
+  getChannels
 } from "./firestore.js";
 
 let channels = [];
 
-const siteLogo =
-document.getElementById("siteLogo");
+const siteLogo = document.getElementById("siteLogo");
+const siteName = document.getElementById("siteName");
+const developerName = document.getElementById("developerName");
 
-const siteName =
-document.getElementById("siteName");
-
-const developerName =
-document.getElementById("developerName");
-
-const grid =
+const channelGrid =
 document.getElementById("channelGrid");
 
 const adminBtn =
 document.getElementById("adminBtn");
 
-// -----------------------
-// Load Website
-// -----------------------
+// ---------------------
+// Website Settings
+// ---------------------
 
 async function loadWebsite(){
 
-const website=
-await getWebsiteSettings();
+    try{
 
-siteName.textContent=
-website.name || "Goa TV Live";
+        const website =
+        await getWebsiteSettings();
 
-developerName.textContent=
-website.developer || "Vikrant Naik";
+        siteName.textContent =
+        website.name || "Goa TV Live";
 
-if(
+        developerName.textContent =
+        website.developer || "Vikrant Naik";
 
-website.logo &&
+        if(
+            website.logo &&
+            website.logo.trim()!==""
+        ){
 
-website.logo.trim()!== ""
+            siteLogo.src =
+            website.logo;
 
-){
+        }
 
-siteLogo.src=
-website.logo;
+    }catch(err){
+
+        console.log(err);
+
+    }
 
 }
 
-}
-
-// -----------------------
+// ---------------------
 // Load Channels
-// -----------------------
+// ---------------------
 
-async function loadAllChannels(){
+async function loadChannels(){
 
-channels=
-await getChannels();
+    try{
 
-renderChannels();
+        channels =
+        await getChannels();
+
+        renderChannels();
+
+    }catch(err){
+
+        console.log(err);
+
+        channelGrid.innerHTML=`
+        <div style="
+        padding:40px;
+        text-align:center;
+        color:red;">
+        Failed to load channels
+        </div>
+        `;
+
+    }
 
 }
 
-adminBtn.onclick=function(){
+// Admin
 
-window.location.href=
-"admin.html";
-// ===================================
+adminBtn.onclick=()=>{
+
+    location.href="admin.html";
+
+};
+// =======================================
 // Goa TV Live
 // app.js
 // Part 2
-// ===================================
+// =======================================
 
-// Render Channels
+function renderChannels(){
 
-function renderChannels() {
+    channelGrid.innerHTML="";
 
-    grid.innerHTML = "";
+    if(channels.length===0){
 
-    if (channels.length === 0) {
-
-        grid.innerHTML = `
+        channelGrid.innerHTML=`
         <div style="
-            padding:40px;
-            text-align:center;
-            color:#666;
-            width:100%;">
-            No Channels Available
+        padding:40px;
+        text-align:center;
+        color:#666;">
+        No Channels Available
         </div>
         `;
 
@@ -104,111 +118,95 @@ function renderChannels() {
 
     }
 
-    channels.forEach(channel => {
+    channels.forEach(channel=>{
 
-        const card = document.createElement("div");
+        const card=document.createElement("div");
 
-        card.className = "channel-card";
+        card.className="channel-card";
 
-        card.innerHTML = `
+        card.innerHTML=`
 
-            ${channel.live ? `
-            <div class="live-badge">
-                LIVE
-            </div>
-            ` : ""}
+        ${channel.live?`
+        <div class="live-badge">
+        LIVE
+        </div>
+        `:""}
 
-            <img
-            src="${channel.logo || "assets/default-channel.png"}"
-            alt="${channel.name}"
-            loading="lazy"
-            onerror="this.src='assets/default-channel.png'">
+        <img
+        src="${channel.logo || "assets/default-channel.png"}"
+        alt="${channel.name}"
+        loading="lazy"
+        onerror="this.src='assets/default-channel.png'">
 
-            <h3>${channel.name}</h3>
+        <h3>${channel.name}</h3>
 
         `;
 
-        card.onclick = function () {
+        card.onclick=()=>{
 
             sessionStorage.setItem(
+
                 "selectedChannel",
+
                 JSON.stringify(channel)
+
             );
 
-            window.location.href = "player.html";
+            location.href="player.html";
 
         };
 
-        grid.appendChild(card);
+        channelGrid.appendChild(card);
 
     });
 
 }
-};// ===================================
+
+// =======================================
 // Goa TV Live
 // app.js
 // Part 3
-// ===================================
+// =======================================
 
-// Start App
+// ---------------------
+// Initialize Website
+// ---------------------
 
-async function init() {
+async function init(){
 
-    try {
+    await loadWebsite();
 
-        await loadWebsite();
-
-        await loadAllChannels();
-
-        console.log("Goa TV Live Loaded");
-
-    } catch (err) {
-
-        console.error(err);
-
-        grid.innerHTML = `
-        <div style="
-            padding:40px;
-            text-align:center;
-            color:red;
-            width:100%;
-            font-size:18px;">
-            Failed to load website.
-        </div>
-        `;
-
-    }
+    await loadChannels();
 
 }
 
 // Internet Status
 
-window.addEventListener("offline", () => {
+window.addEventListener("offline",()=>{
 
     alert("No Internet Connection");
 
 });
 
-window.addEventListener("online", () => {
+window.addEventListener("online",()=>{
 
     init();
 
 });
 
-// Register Service Worker
+// Service Worker
 
-if ("serviceWorker" in navigator) {
+if("serviceWorker" in navigator){
 
-    window.addEventListener("load", () => {
+    window.addEventListener("load",()=>{
 
-        navigator.serviceWorker
-            .register("./service-worker.js")
-            .then(() => {
+        navigator.serviceWorker.register("./service-worker.js")
+        .then(()=>{
 
-                console.log("Service Worker Registered");
+            console.log("Service Worker Registered");
 
-            })
-            .catch(console.error);
+        })
+        .catch(console.error);
 
     });
 
@@ -217,7 +215,5 @@ if ("serviceWorker" in navigator) {
 // Start Website
 
 init();
-
-
 
 
