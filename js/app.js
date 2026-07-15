@@ -4,7 +4,7 @@
 // Part 1
 // ==========================
 
-const CONFIG_URL = "./config/config.json";
+import { loadChannels } from "./firestore.js";
 
 let config = {};
 let channels = [];
@@ -45,7 +45,7 @@ async function loadConfig() {
 
         }
 
-        channels = config.channels || [];
+        channels = await loadChannels();
 
         renderChannels();
 
@@ -211,13 +211,6 @@ window.addEventListener("online", () => {
 
 });
 
-// Refresh config every 60 seconds
-
-setInterval(() => {
-
-    loadConfig();
-
-}, 60000);
 
 // Register Service Worker
 
