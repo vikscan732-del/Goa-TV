@@ -84,13 +84,7 @@ async function loadChannels(){
 
 }
 
-// Admin
 
-adminBtn.onclick=()=>{
-
-    location.href="admin.html";
-
-};
 // =======================================
 // Goa TV Live
 // app.js
