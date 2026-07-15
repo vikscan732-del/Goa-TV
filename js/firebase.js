@@ -1,16 +1,8 @@
-// Firebase SDK
-
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
 
-import {
-getFirestore
-} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+import { getFirestore } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
-import {
-getAuth
-} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
-
-// Firebase Config
+import { getAuth } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 
 const firebaseConfig = {
 
@@ -28,8 +20,6 @@ appId: "1:189162496228:web:db24395dd9ee53a40b0cf1"
 
 };
 
-// Initialize Firebase
-
 const app = initializeApp(firebaseConfig);
 
 const db = getFirestore(app);
@@ -37,4 +27,3 @@ const db = getFirestore(app);
 const auth = getAuth(app);
 
 export { app, db, auth };
-
