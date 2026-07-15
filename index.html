@@ -1,56 +1,82 @@
-import { auth } from "./firebase.js";
+<!DOCTYPE html>
+<html lang="en">
 
-import {
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 
-signInWithEmailAndPassword,
+<title>Goa TV Live</title>
 
-signOut,
+<meta name="theme-color" content="#1976d2">
 
-onAuthStateChanged
+<link rel="manifest" href="manifest.json">
 
-} from "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
+<link rel="icon" href="assets/default-logo.png">
 
-// ----------------------
-// Login
-// ----------------------
+<link rel="stylesheet" href="css/style.css">
 
-export async function login(email,password){
+</head>
 
-    return await signInWithEmailAndPassword(
+<body>
 
-        auth,
+<header class="header">
 
-        email,
+<div class="header-left">
 
-        password
+<img
+id="siteLogo"
+class="site-logo"
+src="assets/default-logo.png"
+alt="Logo">
 
-    );
+<div>
 
-}
+<h1 id="siteName">Goa TV Live</h1>
 
-// ----------------------
-// Logout
-// ----------------------
+<p class="subtitle">
+Watch Live TV Anywhere
+</p>
 
-export async function logout(){
+</div>
 
-    await signOut(auth);
+</div>
 
-}
+<button id="adminBtn">
+⚙
+</button>
 
-// ----------------------
-// Check Login
-// ----------------------
+</header>
 
-export function checkLogin(callback){
+<section class="live-header">
 
-    onAuthStateChanged(auth,user=>{
+<div class="live-dot"></div>
 
-        callback(user);
+<h2>LIVE CHANNELS</h2>
 
-    });
+</section>
 
-}
+<main>
+
+<div
+id="channelGrid"
+class="channel-grid">
+
+</div>
+
+</main>
+
+<footer>
+
+<p>
+
+Developer
+<b id="developerName">
+Vikrant Naik
+</b>
+
+</p>
+
+</footer>
 
 <script type="module" src="js/app.js"></script>
 
