@@ -1,0 +1,190 @@
+/* =================================
+   Goa TV Live
+   player.css
+================================= */
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+}
+
+body{
+font-family:Arial,Helvetica,sans-serif;
+background:#111;
+color:#fff;
+display:flex;
+flex-direction:column;
+min-height:100vh;
+}
+
+.player-header{
+display:flex;
+align-items:center;
+justify-content:space-between;
+padding:15px;
+background:#1976d2;
+box-shadow:0 2px 10px rgba(0,0,0,.3);
+}
+
+.player-header h2{
+flex:1;
+text-align:center;
+font-size:20px;
+margin:0 10px;
+white-space:nowrap;
+overflow:hidden;
+text-overflow:ellipsis;
+}
+
+#backBtn{
+background:#fff;
+color:#1976d2;
+border:none;
+padding:10px 16px;
+border-radius:10px;
+font-weight:bold;
+cursor:pointer;
+}
+
+.live-badge{
+background:#e53935;
+padding:6px 12px;
+border-radius:20px;
+font-size:12px;
+font-weight:bold;
+animation:blink 1s infinite;
+}
+
+@keyframes blink{
+
+0%{opacity:1;}
+
+50%{opacity:.3;}
+
+100%{opacity:1;}
+
+}
+
+.player-container{
+position:relative;
+flex:1;
+display:flex;
+align-items:center;
+justify-content:center;
+background:#000;
+}
+
+#video{
+width:100%;
+height:100%;
+max-height:70vh;
+background:#000;
+}
+
+#loading{
+position:absolute;
+color:#fff;
+font-size:18px;
+background:rgba(0,0,0,.6);
+padding:12px 20px;
+border-radius:10px;
+}
+
+.controls{
+display:flex;
+justify-content:center;
+gap:15px;
+padding:15px;
+flex-wrap:wrap;
+background:#181818;
+}
+
+.controls button{
+background:#1976d2;
+color:#fff;
+border:none;
+padding:12px 20px;
+border-radius:10px;
+font-size:15px;
+cursor:pointer;
+}
+
+.controls button:hover{
+background:#1565c0;
+}
+
+.volume-box{
+padding:15px;
+background:#202020;
+display:flex;
+align-items:center;
+gap:15px;
+justify-content:center;
+}
+
+.volume-box input{
+width:220px;
+}
+
+.player-info{
+padding:15px;
+text-align:center;
+background:#181818;
+font-size:15px;
+color:#ddd;
+}
+
+@media(max-width:700px){
+
+.player-header{
+
+flex-wrap:wrap;
+
+gap:10px;
+
+}
+
+.player-header h2{
+
+font-size:18px;
+
+width:100%;
+
+order:3;
+
+text-align:center;
+
+}
+
+#video{
+
+max-height:55vh;
+
+}
+
+.controls{
+
+flex-direction:column;
+
+}
+
+.controls button{
+
+width:100%;
+
+}
+
+.volume-box{
+
+flex-direction:column;
+
+}
+
+.volume-box input{
+
+width:100%;
+
+}
+
+}
