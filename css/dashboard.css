@@ -1,0 +1,178 @@
+/* ==============================
+   Goa TV Live
+   dashboard.css
+============================== */
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+}
+
+body{
+font-family:Arial,Helvetica,sans-serif;
+background:#f4f6f9;
+color:#222;
+}
+
+/* Login */
+
+#loginPage{
+display:flex;
+justify-content:center;
+align-items:center;
+height:100vh;
+padding:20px;
+}
+
+.login-card{
+width:100%;
+max-width:400px;
+background:#fff;
+padding:25px;
+border-radius:15px;
+box-shadow:0 4px 15px rgba(0,0,0,.15);
+}
+
+.login-card h1{
+text-align:center;
+margin-bottom:20px;
+color:#1976d2;
+}
+
+.login-card input{
+width:100%;
+padding:12px;
+margin-bottom:15px;
+border:1px solid #ccc;
+border-radius:10px;
+font-size:16px;
+}
+
+.login-card button{
+width:100%;
+padding:12px;
+background:#1976d2;
+color:#fff;
+border:none;
+border-radius:10px;
+font-size:16px;
+cursor:pointer;
+}
+
+#loginError{
+margin-top:12px;
+text-align:center;
+color:red;
+font-size:14px;
+}
+
+/* Dashboard */
+
+header{
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:15px;
+background:#1976d2;
+color:#fff;
+}
+
+header button{
+background:#fff;
+color:#1976d2;
+border:none;
+padding:10px 15px;
+border-radius:8px;
+cursor:pointer;
+font-weight:bold;
+}
+
+.card{
+background:#fff;
+margin:20px;
+padding:20px;
+border-radius:15px;
+box-shadow:0 2px 10px rgba(0,0,0,.08);
+}
+
+.card h2{
+margin-bottom:15px;
+}
+
+.card input{
+width:100%;
+padding:12px;
+margin-bottom:12px;
+border:1px solid #ccc;
+border-radius:8px;
+font-size:15px;
+}
+
+.top-row{
+display:flex;
+justify-content:space-between;
+align-items:center;
+margin-bottom:15px;
+}
+
+#addChannel{
+background:#1976d2;
+color:#fff;
+border:none;
+padding:10px 18px;
+border-radius:8px;
+cursor:pointer;
+}
+
+.channel-item{
+border:1px solid #ddd;
+padding:15px;
+border-radius:12px;
+margin-bottom:15px;
+}
+
+.channel-item button{
+margin-top:10px;
+margin-right:10px;
+padding:10px 15px;
+border:none;
+border-radius:8px;
+cursor:pointer;
+}
+
+.save-btn{
+background:#2e7d32;
+color:#fff;
+}
+
+.delete-btn{
+background:#d32f2f;
+color:#fff;
+}
+
+footer{
+padding:20px;
+text-align:center;
+color:#777;
+font-size:14px;
+}
+
+@media(max-width:700px){
+
+header{
+flex-direction:column;
+gap:12px;
+}
+
+.top-row{
+flex-direction:column;
+gap:10px;
+align-items:flex-start;
+}
+
+.card{
+margin:10px;
+}
+
+}
