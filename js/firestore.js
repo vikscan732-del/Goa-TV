@@ -4,32 +4,54 @@ import {
 
 collection,
 
-getDocs
+getDocs,
+
+addDoc,
+
+updateDoc,
+
+deleteDoc,
+
+doc
 
 } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
-export async function loadChannels(){
+export async function getChannels(){
 
-const snapshot = await getDocs(
+const snapshot = await getDocs(collection(db,"channels"));
 
-collection(db,"channels")
+const list=[];
 
-);
+snapshot.forEach(d=>{
 
-const channels=[];
+list.push({
 
-snapshot.forEach(doc=>{
+id:d.id,
 
-channels.push({
-
-id:doc.id,
-
-...doc.data()
+...d.data()
 
 });
 
 });
 
-return channels;
+return list;
+
+}
+
+export async function addChannel(data){
+
+await addDoc(collection(db,"channels"),data);
+
+}
+
+export async function updateChannel(id,data){
+
+await updateDoc(doc(db,"channels",id),data);
+
+}
+
+export async function deleteChannel(id){
+
+await deleteDoc(doc(db,"channels",id));
 
 }
