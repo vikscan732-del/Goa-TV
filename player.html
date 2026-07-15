@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+content="width=device-width,initial-scale=1">
+
+<title>Goa TV Player</title>
+
+<link rel="stylesheet"
+href="css/player.css">
+
+</head>
+
+<body>
+
+<header class="player-header">
+
+<button id="backBtn">
+
+⬅ Back
+
+</button>
+
+<h2 id="channelName">
+
+Loading...
+
+</h2>
+
+<div class="live-badge">
+
+LIVE
+
+</div>
+
+</header>
+
+<div class="player-container">
+
+<video
+id="video"
+controls
+autoplay
+playsinline>
+
+</video>
+
+<div id="loading">
+
+Loading Stream...
+
+</div>
+
+</div>
+
+  <div class="controls">
+
+<button id="fullscreenBtn">
+
+⛶ Full Screen
+
+</button>
+
+<button id="pipBtn">
+
+🖼 Picture in Picture
+
+</button>
+
+</div>
+
+<div class="volume-box">
+
+<label>
+
+🔊 Volume
+
+</label>
+
+<input
+id="volume"
+type="range"
+min="0"
+max="100"
+value="100">
+
+</div>
+
+<div class="player-info">
+
+<p id="statusText">
+
+Connecting...
+
+</p>
+
+</div>
+
+  <script type="module" src="js/player.js"></script>
+
+</body>
+
+</html>
