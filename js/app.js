@@ -18,8 +18,6 @@ const developerName = document.getElementById("developerName");
 const channelGrid =
 document.getElementById("channelGrid");
 
-const adminBtn =
-document.getElementById("adminBtn");
 
 // ---------------------
 // Website Settings
